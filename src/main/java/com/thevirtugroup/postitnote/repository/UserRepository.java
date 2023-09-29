@@ -1,13 +1,13 @@
 package com.thevirtugroup.postitnote.repository;
 
-
 import com.thevirtugroup.postitnote.model.User;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepository {
 
-    private User defaultUser;
+    private final User defaultUser;
 
     public UserRepository() {
         defaultUser = new User();
@@ -21,7 +21,7 @@ public class UserRepository {
         if ("user".equals(username)){
             return defaultUser;
         }
-        return null;
+        throw new BadCredentialsException(String.format("User with username '%s' not found.", username));
     }
 
     public User findById(Long id){
@@ -30,6 +30,4 @@ public class UserRepository {
         }
         return null;
     }
-
-
 }

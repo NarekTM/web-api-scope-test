@@ -1,10 +1,12 @@
 package com.thevirtugroup.postitnote.security;
 
-import com.thevirtugroup.postitnote.model.User;
+import com.thevirtugroup.postitnote.dto.UserResponseDto;
 
 class LoginResponse {
+
     private boolean success;
-    private User user;
+
+    private UserResponseDto user;
 
     public boolean isSuccess() {
         return success;
@@ -14,11 +16,11 @@ class LoginResponse {
         this.success = success;
     }
 
-    public User getUser() {
+    public UserResponseDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserResponseDto user) {
         this.user = user;
     }
 }

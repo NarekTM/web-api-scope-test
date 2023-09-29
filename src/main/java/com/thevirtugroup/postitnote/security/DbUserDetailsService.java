@@ -1,8 +1,6 @@
 package com.thevirtugroup.postitnote.security;
 
 import com.thevirtugroup.postitnote.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DbUserDetailsService implements UserDetailsService {
-    private static Logger LOG = LoggerFactory.getLogger(DbUserDetailsService.class);
 
     @Autowired
     private UserRepository userRepo;

@@ -10,26 +10,24 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-/**
- */
 @SpringBootApplication
 @Import({MvcConfig.class, WebSecurityConfig.class})
 @ComponentScan({
         "com.thevirtugroup.postitnote.service",
+        "com.thevirtugroup.postitnote.service.converter",
         "com.thevirtugroup.postitnote.security",
         "com.thevirtugroup.postitnote.repository",
         "com.thevirtugroup.postitnote.rest"
 })
 public class Application extends WebMvcConfigurerAdapter {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.setProperty("spring.devtools.restart.enabled", "true");
 
         SpringApplication.run(Application.class, args);
     }
 
     @Bean
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
-
 }

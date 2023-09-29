@@ -1,18 +1,18 @@
 package com.thevirtugroup.postitnote.config;
 
-import com.thevirtugroup.postitnote.repository.UserRepository;
 import com.thevirtugroup.postitnote.security.CustomAuthenticationSuccessHandler;
+import com.thevirtugroup.postitnote.security.JsonAuthenticationFailureHandler;
 import com.thevirtugroup.postitnote.security.JsonAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.authentication.encoding.PlaintextPasswordEncoder;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -29,13 +29,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(authenticationFilter(),
                         UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
+                .antMatchers("/api/notes/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .logout()
                 .and()
                 .csrf().disable()
-                .httpBasic()
-        ;
+                .httpBasic();
     }
 
     @Bean
@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authFilter.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/api/login", "POST"));
         authFilter.setAuthenticationManager(authenticationManager());
         authFilter.setAuthenticationSuccessHandler(successHandler());
+        authFilter.setAuthenticationFailureHandler(failureHandler());
         authFilter.setUsernameParameter("username");
         authFilter.setPasswordParameter("password");
         return authFilter;
@@ -54,6 +55,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomAuthenticationSuccessHandler();
     }
 
+    @Bean
+    public JsonAuthenticationFailureHandler failureHandler() {
+        return new JsonAuthenticationFailureHandler();
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -63,8 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth
                 .authenticationProvider(authenticationProvider)
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(new PlaintextPasswordEncoder())
+                .passwordEncoder(new BCryptPasswordEncoder())
                 .and();
     }
-
 }

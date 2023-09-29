@@ -1,22 +1,27 @@
 <h4>Note</h4>
 
-<form>
+<form name="noteForm">
     <md-input-container>
         <label>Name</label>
-        <input type="text" ng-model="color" required md-maxlength="10">
+        <input type="text" name="title" ng-model="selectedNote.title" required md-maxlength="10">
+        <div ng-messages="noteForm.title.$error" ng-if="!selectedNote.title">
+            <div ng-message="required">Note title is required.</div>
+        </div>
     </md-input-container>
 
     <md-input-container>
         <label>Note text</label>
-        <textarea class="note-body" ng-model="note" rows="10" required md-maxlength="500">
-                </textarea>
+        <textarea class="note-body" name="content" ng-model="selectedNote.content" rows="10" required md-maxlength="500"></textarea>
+        <div ng-messages="noteForm.content.$error" ng-if="!selectedNote.content">
+            <div ng-message="required">Note content is required.</div>
+        </div>
     </md-input-container>
 
     <div class="action-buttons">
-        <md-button>
+        <md-button ng-click="saveNote()" ng-disabled="noteForm.$invalid">
             Save
         </md-button>
-        <md-button>
+        <md-button ng-click="cancelEdit()">
             Cancel
         </md-button>
     </div>

@@ -1,31 +1,20 @@
 <h4>Available notes</h4>
 
 <ul class="notes-list">
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
-    </li>
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
-    </li>
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
-    </li>
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
-    </li>
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
-    </li>
-    <li>
-        <p class="note-summary">This is a note</p>
-        <p class="note-timedate"><i>12/11/39</i></p>
+    <li ng-repeat="note in notes" ng-click="viewNote(note)">
+        <div class="sequence-number">{{$index + 1}}.</div>
+
+        <div class="note-content">
+            <p class="note-summary">{{note.title}}</p>
+            <p class="note-timeDate"><i>{{note.creationDateTime}}</i></p>
+        </div>
+
+        <md-button class="delete-button" ng-click="deleteNote(note); $event.stopPropagation();">
+            <i class="fa fa-trash"></i>
+        </md-button>
     </li>
 </ul>
+
 <md-button style="float:right" ng-click="newNoteView()">
     New Note
 </md-button>

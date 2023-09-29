@@ -97,6 +97,38 @@ md-button {
 .notes-view .notes-panel .notes-list li:hover {
     background-color: lightgray;
 }
-.notes-view .notes-panel .notes-list .note-timedate {
+
+.notes-view .notes-panel .notes-list .note-timeDate {
     font-size: 10px;
+}
+
+.notes-view .notes-panel .notes-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sequence-number {
+    flex-shrink: 0;
+    width: 30px;
+    text-align: right;
+    margin-right: 10px;
+    align-self: center;
+}
+
+.note-content {
+    flex: 1;
+}
+
+.delete-button {
+    margin-left: 10px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: red;
+    color: white;
+}
+
+.delete-button i.fa-trash {
+    margin: 0;
 }

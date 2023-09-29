@@ -68,4 +68,9 @@ public class NoteService {
                 )
         );
     }
+
+    public void deleteAllNotes() {
+        LOGGER.info("Deleting all notes.");
+        noteRepository.deleteAll();
+    }
 }

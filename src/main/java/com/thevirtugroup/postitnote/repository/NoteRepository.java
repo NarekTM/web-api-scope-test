@@ -41,4 +41,8 @@ public class NoteRepository {
     public Note delete(Long id) {
         return notes.remove(id);
     }
+
+    public void deleteAll() {
+        notes.clear();
+    }
 }

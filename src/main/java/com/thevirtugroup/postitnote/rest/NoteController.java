@@ -48,4 +48,11 @@ public class NoteController {
     public ResponseEntity<NoteDto> deleteNote(@PathVariable Long id) {
         return noteService.deleteNote(id);
     }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteAllNotes() {
+        noteService.deleteAllNotes();
+
+        return ResponseEntity.ok("All notes were deleted.");
+    }
 }
